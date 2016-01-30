@@ -16,6 +16,8 @@ public class CharacterMovement : MonoBehaviour {
     public bool rightPlayer = false;
 
     public float speed = 1f;
+    public float jumpForce = 15f;
+    public float gravity = 0.981f;
 
 	// Use this for initialization
 	void Start () {
@@ -44,15 +46,18 @@ public class CharacterMovement : MonoBehaviour {
 
         if (cC.isGrounded)
         {
-            moveDir = baseMove + (transform.right * horiInput + transform.forward * vertInput) / 3;
-            if (jumpPress && jump <= 0) {
-                moveDir.y = 1.5f;
+            moveDir = (baseMove + (transform.right * horiInput + transform.forward * vertInput) / 3) * speed;
+            if (jumpPress && jump <= 0)
+            {
+                moveDir.y = jumpForce;
                 jumpPress = false;
             }
         }
-        moveDir.y -= 0.06f;
+        else {
+            moveDir.y -= gravity;
+        }
 
         
-        cC.Move(moveDir * speed * Time.deltaTime);
+        cC.Move(moveDir * Time.deltaTime);
 	}
 }
