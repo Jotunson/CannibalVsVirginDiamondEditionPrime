@@ -39,13 +39,20 @@ public class CannibalDistanceUI : MonoBehaviour {
 
         if(transform.position.x <= virgin.transform.position.x)
         {
-            arrowRot = Quaternion.Euler(0, 0, -Vector3.Angle(transform.forward, canToVir.normalized));
+            arrowRot = Quaternion.Euler(0, 0, -Vector3.Angle(transform.forward, canToVir.normalized) * 1.2f);
         }
         else
         {
-            arrowRot = Quaternion.Euler(0, 0, Vector3.Angle(transform.forward, canToVir.normalized));
+            arrowRot = Quaternion.Euler(0, 0, Vector3.Angle(transform.forward, canToVir.normalized) * 1.2f);
         }
 
         arrowImage.rectTransform.rotation = arrowRot;
+
+
+
+        if(transform.position.z > virgin.transform.position.z - 5)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, virgin.transform.position.z - 5);
+        }
 	}
 }
